@@ -1,0 +1,140 @@
+h3 {
+  font-weight: 600 !important;
+  font-size: 26px !important;
+}
+.login {
+  min-height: 100vh;
+  background-color: #5600c2;
+  font-family: 'Quicksand', sans-serif !important;
+  padding: 25px 0px;
+}
+.login-form p {
+  font-weight: 500;
+}
+.login-form {
+  background-color: white;
+  padding: 20px 85px;
+  border-bottom-right-radius: 75px;
+  margin: 25px 0 auto;
+  width: 65%;
+}
+.form-row, .form-group {
+  margin-bottom: 4px !important;
+}
+.login-form label {
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+
+.login-form input {
+  border-radius: 30px;
+  transition: .5s;
+}
+
+.login-form select {
+  border-radius: 30px;
+  transition: .5s;
+}
+.login-form input:focus {
+  border-color: #5600c2;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085);
+
+}
+.login-form select:focus {
+  border-color: #5600c2;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085);
+}
+
+.login-bg {
+  position: absolute;
+  height: 90%;
+  bottom: 0;
+margin-left: 530px;
+}
+
+.rounded-buttons {
+  background-color: #5600c2;
+  border-radius: 35px;
+  padding: 8px 35px;
+  border: none;
+  transition: .5s;
+  border:1px solid #5600c2;
+  font-weight: 500;
+}
+.rounded-buttons:hover {
+  transform: translateY(-8px);
+  border:1px solid #5600c2;
+  background-color: transparent;
+  color: #383838;
+  transition: .5s;
+}
+.rounded-buttons:focus{
+  transform: translateY(-8px);
+  border:1px solid #5600c2 !important;
+  background-color: #5600c2 !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085) !important;
+}
+
+.login-user-options {
+  padding: 0px 8px;
+  transition: .5s;
+  text-align: center;
+  color: #383838;
+  font-size: 16px;
+  cursor: pointer;
+}
+.login-user-options:hover {
+  color: #5600c2 !important;
+  text-decoration: none;
+
+}
+
+@media (max-width: 1440px) {
+
+ 
+}
+@media (max-width: 1024px) {
+
+  .login-bg {
+  margin-left: 370px;
+  }
+ 
+}
+@media (max-width: 768px) {
+
+  .login-form {
+    width: 80%;
+    padding: 35px 60px;
+  }
+  .login-bg {
+    margin-left: 370px;
+    height: 70%;
+    }
+ 
+}
+@media (max-width: 520px) {
+
+  .login-bg {
+    display: none;
+    }
+}
+@media (max-width: 425px) {
+
+  .login-form {
+    width: 95%;
+    padding: 35px 30px;
+  }
+  .indexlogo {
+    width: 75%;
+  }
+
+}
+@media (max-width: 375px) {
+
+  .login-form {
+    width: 95%;
+    padding: 35px 20px;
+  }
+}

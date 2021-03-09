@@ -1,0 +1,17 @@
+
+.reset-pass {
+  min-height: 100vh;
+  background-color: #5600c2;
+  font-family: 'Quicksand', sans-serif !important;
+  padding: 25px 0px;
+}
+
+.register-form {
+  background-color: white;
+  padding: 35px 40px;
+  border-bottom-right-radius: 75px;
+  margin: 25px 0px;
+}
+.register-form p{
+ font-weight: 500;
+}

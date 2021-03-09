@@ -1,0 +1,60 @@
+h3 {
+  font-weight: 600 !important;
+  font-size: 26px !important;
+}
+.verified {
+  min-height: 100vh;
+  background-color: #5600c2;
+  font-family: 'Quicksand', sans-serif !important;
+  padding: 25px 0px;
+}
+
+.verified-message {
+  background-color: white;
+  padding: 35px 40px;
+  border-bottom-right-radius: 75px;
+  margin: 0 auto;
+  width: 70%;
+}
+.verified-message p {
+font-weight: 500;
+}
+
+
+.rounded-buttons {
+  background-color: #5600c2;
+  border-radius: 35px;
+  padding: 8px 35px;
+  border: none;
+  transition: .5s;
+  border:1px solid #5600c2;
+  font-weight: 500;
+}
+.rounded-buttons:hover {
+  transform: translateY(-8px);
+  border:1px solid #5600c2;
+  background-color: transparent;
+  color: #383838;
+  transition: .5s;
+}
+.rounded-buttons:focus{
+  transform: translateY(-8px);
+  border:1px solid #5600c2 !important;
+  background-color: #5600c2 !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085) !important;
+}
+
+@media (max-width: 425px) {
+  .verified-message {
+    width: 90%;
+  }
+}
+@media (max-width: 375px) {
+  .verified-message {
+    width: 95%;
+  }
+  .blacktext-logo {
+    width: 90%;
+  }
+}

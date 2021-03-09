@@ -1,0 +1,152 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    background-color: white;
+}
+
+.header-menu ul li a{
+    color: #282828;
+    font-weight: 600;
+}
+
+.header-menu ul li a:hover{
+    color: #2E0557;
+    font-weight: 600;
+    transition: all 0.5s ease-out;
+}
+
+.header-menu i {
+    font-size: 1.8rem;
+    color: #2E0557;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-hero {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    background-color: #4D316D;
+  }
+  
+.content-video {
+    position: absolute;
+    display: flex;
+  }
+
+.busqueda-contenedor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 480px;
+      height: 50px;
+      background-color:#F2F2F2;
+    }
+  
+.busqueda {
+    border: none;
+    padding: 10px 25px;
+    width: 440px;
+    background-color: #F2F2F2;
+}
+
+.busqueda:focus {
+        outline: none;
+}
+ 
+.lupa {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background-color: #F2F2F2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 2px solid gray;
+}
+
+.lupa a {
+    color: #4D316D;
+}
+.lupa a:hover {
+    color: #CECECE;
+    transition: all 0.4s ease-out;
+}
+
+.main button {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.main button:hover {
+    -webkit-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.45);
+    -moz-box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.45);
+    box-shadow: 4px 4px 10px 0px rgba(0,0,0,0.45);
+    transition: all 0.3s ease-out;
+    opacity: .9;
+
+}
+
+.footer {
+    background-color: #282828;
+    color: white;
+    border-bottom: 8px solid #4D316D;
+    padding: 25px 0px;
+    font-family: 'Raleway', sans-serif;
+    font-size: .9rem;
+}
+
+.footer h5 {
+    text-transform: uppercase;
+}
+
+.footer a:hover {
+    text-decoration: none;
+}
+.footer p:hover {
+    color: #CECECE;
+    transition: all 0.5s ease-out;
+}
+
+.separador-footer{
+    width: 60px;
+    height: 2px;
+    background-color: #4D316D;
+    margin: 5px 0px;
+}
+
+.rrss a {
+    color: white;
+    font-size: 1.5rem;
+    padding-left: 7px;
+}
+.rrss a:hover {
+    color: #4D316D;
+    transition: all 0.5s ease-out;
+}

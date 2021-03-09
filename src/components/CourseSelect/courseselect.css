@@ -1,0 +1,11 @@
+.course-select {
+  border-radius: .25rem !important;
+  position: relative;
+  z-index: 500;
+  }
+.country-select-focus {
+    border-color: #5600c2 !important;
+    border: 10px solid !important;
+    border-radius: 30px !important;
+    box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085) !important;
+  }

@@ -1,0 +1,170 @@
+h3 {
+  font-weight: 600 !important;
+  font-size: 26px !important;
+}
+.register {
+  min-height: 100vh;
+  background-color: #5600c2;
+  font-family: 'Quicksand', sans-serif !important;
+  padding: 25px 0px;
+}
+
+.register-form {
+  background-color: white;
+  padding: 35px 40px;
+  border-bottom-right-radius: 75px;
+  margin: 25px 0px;
+}
+.register-form p{
+ font-weight: 500;
+}
+.form-row, .form-group, .input-group {
+  margin-bottom: 4px;
+}
+.register-form label {
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 3px;
+}
+
+.register-form input {
+  border-radius: 30px;
+  transition: .2s;
+}
+.custom-file-label {
+  border-radius: 30px !important;
+  transition: .2s;
+}
+.custom-file-label::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: block;
+  height: calc(1.5em + .75rem);
+  padding: .375rem .75rem;
+  line-height: 1.5;
+  color: #495057;
+  content: "Seleccionar imagen" !important;
+  background-color: #e9ecef;
+  border-radius: 30px !important;
+}
+
+.register-form select {
+  border-radius: 30px;
+  transition: .2s;
+}
+
+.register-form input:focus {
+  border-color: #5600c2;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085);
+  border-radius: 5px !important;
+
+}
+.register-form select:focus {
+  border-color: #5600c2;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085);
+  border-radius: 5px !important;
+}
+.custom-file-label input:focus {
+  border-color: #5600c2 !important;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085) !important;
+  border-radius: 5px !important;
+}
+
+.custom-file-input:focus~.custom-file-label {
+  border-color: #5600c2 !important;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085) !important;
+  border-radius: 5px !important;
+}
+
+.rounded-buttons {
+  background-color: #5600c2;
+  border-radius: 35px;
+  padding: 8px 35px;
+  border: none;
+  transition: .5s;
+  border:1px solid #5600c2;
+  font-weight: 500;
+}
+.rounded-buttons:hover {
+  transform: translateY(-8px);
+  border:1px solid #5600c2;
+  background-color: transparent;
+  color: #383838;
+  transition: .5s;
+}
+.rounded-buttons:focus{
+  transform: translateY(-8px);
+  border:1px solid #5600c2 !important;
+  background-color: #5600c2 !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085) !important;
+}
+
+
+#alerts-modal .modal-content {
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: 0px;
+  border-bottom-right-radius: 30px;
+  padding: 20px;
+  border: none;
+}
+#alerts-modal .modal-content p{
+  font-weight: 500 !important;
+}
+
+#alerts-modal .modal-header {
+  padding: 0px;
+
+}
+
+#alerts-modal .close {
+  color: #5600c2;
+  opacity: 1;
+  transition: .4s;
+  padding: 5px 10px;
+}
+#alerts-modal .close:hover {
+  transform: scale(1.2);
+}
+#alerts-modal .close:focus {
+  outline: none !important;
+}
+
+
+.rounded-small-buttons {
+  background-color: #5600c2;
+  border-radius: 35px;
+  padding: 5px 35px;
+  border: none;
+  transition: .5s;
+  border:1px solid #5600c2;
+  font-weight: 500;
+  font-size: 13px;
+}
+.rounded-small-buttons:hover {
+  transform: translateY(-8px);
+  border:1px solid #5600c2;
+  background-color: transparent;
+  color: #383838;
+  transition: .5s;
+}
+.rounded-small-buttons:focus{
+  transform: translateY(-8px);
+  border:1px solid #5600c2 !important;
+  background-color: #5600c2 !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(86,0,194,.085) !important;
+}
+
+.init-icons {
+  color: #5600c2;
+  font-size: 21px;
+  transition: .5s;
+}
+.init-icons:hover{
+  color: #46009c;
+  font-size: 21px;
+}

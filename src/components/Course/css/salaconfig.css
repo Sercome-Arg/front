@@ -1,0 +1,34 @@
+/*
+    WRAPPER
+*/
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+
+body {
+  font-family: 'Quicksand', sans-serif;
+    background: #f2f2f2;
+}
+
+p {
+  font-family: 'Quicksand', sans-serif;
+    font-size: 1em;
+    font-weight: 300;
+    line-height: 1.2em;
+    color: #383838;
+    font-size: 17px;
+}
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+.MuiIconButton-root:focus {
+  outline: none !important;
+}
+
+
+/* modificado */
+.box{
+  margin: 0 auto  ;
+  width: 200px;
+}
+
+
