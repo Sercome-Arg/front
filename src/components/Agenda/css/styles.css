@@ -1,0 +1,70 @@
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+.margin-top {
+    margin-top: 50px;
+}
+.wrapper .carousel-indicators {
+    padding-bottom: 50px;
+}
+.agenda-home {
+    margin: 70px 0px 40px 0px;
+}
+
+.violet-bg {
+    background-color: #4d5ca6;
+    min-height: 90px;
+    align-items: center;
+    padding: 10px 0px ;
+}
+.button-title {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 21px;
+    color: white;
+    margin-bottom: 0px;
+}
+.button-access {
+    margin-bottom: 0px;
+}
+.button-access a{
+    color: #bcbc00;
+    font-size: 16px;
+}
+.button-access a:hover{
+    text-decoration: none;
+}
+.salas-button {
+    margin: 10px 0px;
+}
+@media screen and (max-width: 992px) {
+
+
+}
+@media screen and (max-width: 768px) {
+    
+
+}
+
+@media screen and (max-width: 525px) {
+    .violet-bg {
+        background-color: transparent;
+        min-height: 90px;
+        align-items: center;
+        padding: 10px 0px ;
+    }
+    .salas-button {
+        margin: 10px 0px;
+        background-color: #4d5ca6;
+    }
+    
+}
+
+@media screen and (max-width: 375px) {
+ 
+}
+@media screen and (max-width: 320px) {
+ 
+
+}

@@ -1,0 +1,35 @@
+.agenda-turno .lower-title {
+    text-transform: lowercase;
+    color: white;
+    font-weight: 300;
+    margin-left: 4px;
+}
+
+.almuerzo {
+    width: 100%;
+    background-color: rgb(25, 161, 120);
+    padding: 0px 5px;
+    text-align: center !important;
+}
+@media screen and (max-width: 992px) {
+
+
+}
+@media screen and (max-width: 768px) {
+    
+  
+ 
+}
+
+@media screen and (max-width: 576px) {
+
+    
+}
+
+@media screen and (max-width: 375px) {
+ 
+}
+@media screen and (max-width: 320px) {
+ 
+
+}

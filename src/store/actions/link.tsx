@@ -2,6 +2,32 @@ import axios from 'axios'
 import config from './config'
 import storage from './../../config'
 
+export function getLinks() {
+
+	let project = {}
+	let match = {
+		operationType : { $ne: "D" }
+	}
+	let sort = {}
+	let group = {}
+	let limit = 0
+	let skip = 0
+	
+	let payload: any = axios.get(config.url + '/link' + `?project=${JSON.stringify(project)}&match=${JSON.stringify(match)}&sort=${JSON.stringify(sort)}&group=${JSON.stringify(group)}&limit=${limit}&skip=${skip}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem(storage.session_token),
+      'session': localStorage.getItem(storage.session_id)
+    }
+  })
+	
+  return {
+		type: 'GET_LINKS',
+		payload: payload
+	}
+
+}
+
 export function getLink(
 	idLink: string | null
 ) {

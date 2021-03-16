@@ -6,6 +6,10 @@ import Router from './Router'
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import store from './store/index';
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('G-2F7PWTWTM9');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 ReactDOM.render(
   <Suspense fallback=''>

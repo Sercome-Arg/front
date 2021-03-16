@@ -27,3 +27,36 @@ export function setear() {
 	}
 
 }
+
+export function uploadProfilePicture(file: File) {
+
+	let formData = new FormData();
+
+	formData.append('image', file)
+	let payload = axios.post(config.url + '/image', formData, {
+		headers: {
+			'Content-Type': 'multipart/form-data'
+		}
+	})
+
+  return {
+		type: 'UPDATE_PROFILE_PICTURE',
+		payload: payload
+	}
+}
+
+export function updateProfileData(profile: string, newData: object) {
+
+	let payload = axios.put(config.url + '/user/' + profile, newData, {
+		headers: {
+      'Content-Type': 'application/json',
+      'Authorization': localStorage.getItem(storage.session_token),
+      'session': localStorage.getItem(storage.session_id)
+    }
+	})
+
+  return {
+		type: 'UPDATE_PROFILE_DATA',
+		payload: payload
+	}
+}

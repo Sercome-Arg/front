@@ -1,187 +1,273 @@
 export default function FileReducer (state = {
 
-  status: 0,
-  message: '',
-  data: {
-    foto: []
-  },
-  fetching: false,
+	status: 0,
+	message: '',
+	data: {
+		foto: []
+	},
+	fetching: false,
 	fetched: false,
-  error: null,
+	error: null,
 
 }, action: {
 	type: string,
 	payload: any
 }) {
 
-  switch (action.type) {
+	switch (action.type) {
 
-    case 'GET_FILES_FOR_COURSE_PENDING': {
+    case 'GET_FILE_64_PENDING': {
 
-      return { 
-        ...state, 
-        fetching: true 
-      };
+			return { 
+				...state, 
+				fetching: true 
+			};
 
-    }
-  
-    case 'GET_FILES_FOR_COURSE_REJECTED': {
-
-      return { 
-        ...state, 
-        fetching: false, 
-        error: action.payload 
-      };
-
-    }
-  
-    case 'GET_FILES_FOR_COURSE_FULFILLED': {
-      return {
-        ...state,
-        fetching: false,
-        fetched: true,
-        status: action.payload.data.status,
-        message: action.payload.data.message,
-        data: action?.payload?.data?.result || {}
-      };
-    }
-
-    case 'GET_FILES_PENDING': {
+		}
 	
-      return { 
-        ...state, 
-        fetching: true 
-      };
+		case 'GET_FILE_64_REJECTED': {
 
-    }
-  
-    case 'GET_FILES_REJECTED': {
+			let data: any = action?.payload?.response?.data || {}
+			let status: any = action?.payload?.response?.status || 500
+			let message: string = action?.payload?.response?.data?.message || ''
 
-      return { 
-        ...state, 
-        fetching: false, 
-        error: action.payload 
-      };
+			if(status === 500) {
+				if(message === '') {
+					message = 'Servidor deshabilitado. Reporte el problema a su proveedor de servicio.'
+				}
+			}
 
-    }
-  
-    case 'GET_FILES_FULFILLED': {
+			return { 
+				...state, 
+				fetching: false,
+				status: status,
+				data: data,
+				error: action.payload,
+				message: message
+			};
 
-      let files: any[] = action?.payload?.data?.result || []
-      let filesReturn: any[] = []
-      
-      files.map((file: {
-        course: string,
-        courseRef: {
-          name: string
-        }
-      }) => {
-        let fileReturn: any = file
-        fileReturn.course = file?.courseRef?.name || ''
-        filesReturn.push(fileReturn)
-      })
+		}
+	
+		case 'GET_FILE_64_FULFILLED': {
+			return {
+				...state,
+				fetching: false,
+				fetched: true,
+				status: action.payload.data.status,
+				message: action.payload.data.message,
+				data: action?.payload?.data?.result || {}
+			};
+		}
 
-      return {
-        ...state,
-        fetching: false,
-        fetched: true,
-        status: action.payload.data.status,
-        message: action.payload.data.message,
-        data: filesReturn
-      };
-    }
+		case 'GET_FILE_PENDING': {
 
-    case 'SET_FILE_PENDING': {
+			return { 
+				...state, 
+				fetching: true 
+			};
 
-      return { 
-        ...state, 
-        fetching: true 
-      };
+		}
+	
+		case 'GET_FILE_REJECTED': {
 
-    }
-  
-    case 'SET_FILE_REJECTED': {
+			let data: any = action?.payload?.response?.data || {}
+			let status: any = action?.payload?.response?.status || 500
+			let message: string = action?.payload?.response?.data?.message || ''
 
-      return { 
-        ...state, 
-        fetching: false, 
-        error: action.payload 
-      };
+			if(status === 500) {
+				if(message === '') {
+					message = 'Servidor deshabilitado. Reporte el problema a su proveedor de servicio.'
+				}
+			}
 
-    }
-  
-    case 'SET_FILE_FULFILLED': {
-      return {
-        ...state,
-        fetching: false,
-        fetched: true,
-        status: action.payload.data.status,
-        message: action.payload.data.message,
-        data: action?.payload?.data?.result || {}
-      };
-    }
+			return { 
+				...state, 
+				fetching: false,
+				status: status,
+				data: data,
+				error: action.payload,
+				message: message
+			};
 
-    case 'UPLOAD_FILE_PENDING': {
+		}
+	
+		case 'GET_FILE_FULFILLED': {
+			return {
+				...state,
+				fetching: false,
+				fetched: true,
+				status: action.payload.data.status,
+				message: action.payload.data.message,
+				data: action?.payload?.data?.result || {}
+			};
+		}
 
-      return { 
-        ...state, 
-        fetching: true 
-      };
+		case 'GET_FILES_FOR_COURSE_PENDING': {
 
-    }
-  
-    case 'UPLOAD_FILE_REJECTED': {
+			return { 
+				...state, 
+				fetching: true 
+			};
 
-      return { 
-        ...state, 
-        fetching: false, 
-        error: action.payload 
-      };
+		}
+	
+		case 'GET_FILES_FOR_COURSE_REJECTED': {
 
-    }
-  
-    case 'UPLOAD_FILE_FULFILLED': {
+			return { 
+				...state, 
+				fetching: false, 
+				error: action.payload 
+			};
 
-      let fotosAux: string[] = []
-      if(state?.data?.foto !== undefined) {
-        fotosAux = state?.data?.foto || []
-      }
+		}
+	
+		case 'GET_FILES_FOR_COURSE_FULFILLED': {
+			return {
+				...state,
+				fetching: false,
+				fetched: true,
+				status: action.payload.data.status,
+				message: action.payload.data.message,
+				data: action?.payload?.data?.result || {}
+			};
+		}
 
-      fotosAux.push(action?.payload?.data?.result || '')
-      
-      return {
-        ...state,
-        fetching: false,
-        fetched: true,
-        status: action.payload.data.status,
-        message: action.payload.data.message,
-        data: {
-          foto: fotosAux
-        },
-        foto: fotosAux[0]
-      };
-    }
+		case 'GET_FILES_PENDING': {
+	
+			return { 
+				...state, 
+				fetching: true 
+			};
 
-    case 'REINTENTAR_FILE':{
-      return {
-        ...state,
-        fetching: false,
-        fetched: false,
-        status: 0,
-        message: '',
-        data: {}
-      };
-    }
+		}
+	
+		case 'GET_FILES_REJECTED': {
 
-  
-    case 'E': {
-      throw new Error('Este error se manejo asi!' + ' file' + 'Reducer.js');
-    }
+			return { 
+				...state, 
+				fetching: false, 
+				error: action.payload 
+			};
 
-    default: { break; }
-  }
+		}
+	
+		case 'GET_FILES_FULFILLED': {
+
+			let files: any[] = action?.payload?.data?.result || []
+			let filesReturn: any[] = []
+			
+			files.map((file: {
+				course: string,
+				courseRef: {
+					name: string
+				}
+			}) => {
+				let fileReturn: any = file
+				fileReturn.course = file?.courseRef?.name || ''
+				filesReturn.push(fileReturn)
+			})
+
+			return {
+				...state,
+				fetching: false,
+				fetched: true,
+				status: action.payload.data.status,
+				message: action.payload.data.message,
+				data: filesReturn
+			};
+		}
+
+		case 'SET_FILE_PENDING': {
+
+			return { 
+				...state, 
+				fetching: true 
+			};
+
+		}
+	
+		case 'SET_FILE_REJECTED': {
+
+			return { 
+				...state, 
+				fetching: false, 
+				error: action.payload 
+			};
+
+		}
+	
+		case 'SET_FILE_FULFILLED': {
+			return {
+				...state,
+				fetching: false,
+				fetched: true,
+				status: action.payload.data.status,
+				message: action.payload.data.message,
+				data: action?.payload?.data?.result || {}
+			};
+		}
+
+		case 'UPLOAD_FILE_PENDING': {
+
+			return { 
+				...state, 
+				fetching: true 
+			};
+
+		}
+	
+		case 'UPLOAD_FILE_REJECTED': {
+
+			return { 
+				...state, 
+				fetching: false, 
+				error: action.payload 
+			};
+
+		}
+	
+		case 'UPLOAD_FILE_FULFILLED': {
+
+			let fotosAux: string[] = []
+			if(state?.data?.foto !== undefined) {
+				fotosAux = state?.data?.foto || []
+			}
+
+			fotosAux.push(action?.payload?.data?.result || '')
+			
+			return {
+				...state,
+				fetching: false,
+				fetched: true,
+				status: action.payload.data.status,
+				message: action.payload.data.message,
+				data: {
+					foto: fotosAux
+				},
+				foto: fotosAux[0]
+			};
+		}
+
+		case 'REINTENTAR_FILE':{
+			return {
+				...state,
+				fetching: false,
+				fetched: false,
+				status: 0,
+				message: '',
+				data: {}
+			};
+		}
+
+	
+		case 'E': {
+			throw new Error('Este error se manejo asi!' + ' file' + 'Reducer.js');
+		}
+
+		default: { break; }
+	}
 
 
 
-  return state;
+	return state;
 }

@@ -4,9 +4,7 @@ import config from './config'
 
 export function loginVerified(password: string) {
 
-	const empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/loginverified?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/loginverified?database=' + config.company, {
 		password
 	})
 
@@ -18,8 +16,6 @@ export function loginVerified(password: string) {
 }
 
 export function loginWithUser(user: string, password: string) {
-
-	console.log(config.url)
 
 	let payload: any = axios.post(config.url + '/auth/loginwithuser?database=' + config.company, {
 		user,
@@ -72,9 +68,7 @@ export function set(message: string, user: any, status: number) {
 
 export function login(email: string, password: string) {
 
-	const empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/login?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/login?database=' + config.company, {
 		email,
 		password
 	})
@@ -88,9 +82,7 @@ export function login(email: string, password: string) {
 
 export function loginGoogle(user: string, pass: string) {
 
-	const empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/login?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/login?database=' + config.company, {
 		email: user,
 		password: pass
 	})
@@ -104,9 +96,7 @@ export function loginGoogle(user: string, pass: string) {
 
 export function loginGoogleFailure(user: string, pass: string) {
 
-	const empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/login?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/login?database=' + config.company, {
 		email: user,
 		password: pass
 	})
@@ -120,9 +110,7 @@ export function loginGoogleFailure(user: string, pass: string) {
 
 export function loginFacebook(user: string, pass: string) {
 
-	const empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/login?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/login?database=' + config.company, {
 		email: user,
 		password: pass
 	})

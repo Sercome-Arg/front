@@ -27,11 +27,11 @@ class Modal extends React.Component<{}, {}> {
 
 	button = (color: string) => {
 		if(this.props.fetching) {
-			return <button style={{ backgroundColor: color, borderColor: color }} disabled className="btn btn-primary rounded-buttons my-4">    
+			return <button className="btn btn-primary violet-buttons my-4">    
 				<Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true"/>
 			</button>
 		} else {
-			return <button style={{ backgroundColor: color, borderColor: color }} onClick={ this.props.modalAceptar } className="btn btn-primary rounded-small-buttons">Aceptar</button>
+			return <button onClick={ this.props.modalAceptar } className="btn btn-primary violet-small-buttons">Aceptar</button>
 		}
 	}
 

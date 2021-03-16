@@ -25,9 +25,7 @@ export function registerWithUser(
 	aceptTC: boolean
 ) {
 
-	let empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/registerwithuser?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/registerwithuser?database=' + config.company, {
 		user,
 		password,
 		email,
@@ -57,9 +55,7 @@ export function register(
 	name: string,
 ) {
 
-	let empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/register?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/register?database=' + config.company, {
 		user,
 		password,
 		email,
@@ -81,9 +77,7 @@ export function registerGoogle(
 	googleId: string,
 ) {
 
-	let empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/registergoogle?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/registergoogle?database=' + config.company, {
 		email,
 		name,
 		image,
@@ -104,9 +98,7 @@ export function registerFacebook(
 	facebookId: string,
 ) {
 
-	let empresa = 'wings'
-	
-	let payload: any = axios.post(config.url + '/auth/registerfacebook?database=' + empresa, {
+	let payload: any = axios.post(config.url + '/auth/registerfacebook?database=' + config.company, {
 		email,
 		name,
 		image,

@@ -1,18 +1,22 @@
 import React, { useEffect } from 'react'
 import { withTranslation } from 'react-i18next';
+import { Link } from "react-router-dom";
 import { connect } from 'react-redux'
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
-import { Dashboard } from './../Dashboard'
-import { Navbar } from './../Navbar'
-import { Permission } from '../Permission'
+import config from './../../config'
 
-import PERMISSIONS from './../config'
+import './css/styles.css'
 
-import './css/home.css'
+import { Dashboard } from '../Dashboard'
+import { Footer } from '../Footer'
+import { WhiteNavbar } from '../Navbar'
+import { AgendaGral } from '../Home'
 
-const whiteLogo = require('./img/white-logo.png')
-const bgHome = require('./img/bg-home.jpg')
-const userPhoto = require('./img/user.jpg')
+import * as permissionAction from '../../store/actions/permission'
+import * as linkAction from '../../store/actions/link'
+
+const divBorder = { borderRight: '1px solid white' };
 
 function ScrollToTopOnMount() {
 	useEffect(() => {
@@ -23,31 +27,16 @@ function ScrollToTopOnMount() {
 }
 
 function mapStateToProps(store: {
-	loginReducer: any,
-	registerReducer: any,
-	languageReducer: any,
-	subscriptionReducer: any,
-	userReducer: any,
 	permissionReducer: any,
-	appReducer: any,
+	linkReducer: any,
 }) {
 	return {
-		appReducer: store.appReducer,
+		linkReducer: store.linkReducer,
 		permissionReducer: store.permissionReducer,
-		userReducer: store.userReducer,
-		loginReducer: store.loginReducer,
-		registerReducer: store.registerReducer,
-		languageReducer: store.languageReducer,
-		subscriptionReducer: store.subscriptionReducer,
 	};
 }
 
-class Home extends React.Component<{}, {
-	classSidebar: string,
-	classButton: string,
-	allowed: boolean
-}> {
-
+class Home extends React.Component<{}, {}> {
 	props: any
 	static propTypes: any
 	static defaultProps: any
@@ -55,76 +44,191 @@ class Home extends React.Component<{}, {
 	// eslint-disable-next-line no-useless-constructor
 	constructor(props: any) {
 		super(props);
-		this.state = {
-			classSidebar: '',
-			classButton: 'navbar-btn',
-			allowed: true
-		};
+		this.state = {};
 	}
 
-	collapse = () => {
-	
-		if (this.state.classSidebar === ''){
-			this.setState({
-				classSidebar: 'active',
-				classButton: 'navbar-btn active'
-			})
-		} else {
-			this.setState({
-				classSidebar: '',
-				classButton: 'navbar-btn'
-			})
-		}
+	componentWillMount() {
+
+		let userId: string | null = localStorage.getItem(config.session_user)
+		if (localStorage.getItem(config.session_user) === null || localStorage.getItem(config.session_user) === undefined) this.props.history.push('/')
+		if (userId !== null) this.props.dispatch(permissionAction.getPermissionByUser(userId))
+		this.props.dispatch(linkAction.getLinks())
 
 	}
 
-	render(){
+	render() {
 
 		const { t } = this.props;
 
-		let color: string = '#5600c2'
+		let permissions: {
+			permission: string
+		}[] = []
+		let BASE: any = {}
 
-		if(this.props.appReducer.color !== '') {
-			color = this.props.appReducer.color
+		let viewAgendaEnabled: boolean = false
+		let viewGenMedEnabled: boolean = false
+		let viewHomeEnabled: boolean = false
+		let viewPasteurEnabled: boolean = false
+		let viewOneSanofiEnabled: boolean = false
+		let viewSpecialtyCareEnabled: boolean = false
+
+		let links: {
+			url: string,
+			room: string
+		}[] = []
+
+		let link_ONE_SANOFI: string = ''
+
+		if(this.props.permissionReducer.fetched) {
+			permissions = this.props.permissionReducer.data
+			BASE = this.props.permissionReducer.base
 		}
 
-		return(
-			<div>
-				<Permission permission={ PERMISSIONS.viewHome } { ...this.props }/>
-				<ScrollToTopOnMount />
-				<div className="wrapper">
-					<Dashboard classSidebar={ this.state.classSidebar } />
+		if(
+			Array.isArray(permissions) &&
+			BASE !== undefined
+		) {
+			permissions.map((permission: {
+				permission: string
+			}) => {
+				if(BASE.viewAgenda !== undefined) { if(permission.permission === BASE.viewAgenda) viewAgendaEnabled = true }
+				if(BASE.viewGenMed !== undefined) { if(permission.permission === BASE.viewGenMed) viewGenMedEnabled = true }
+				if(BASE.viewHome !== undefined) { if(permission.permission === BASE.viewHome) viewHomeEnabled = true }
+				if(BASE.viewPasteur !== undefined) { if(permission.permission === BASE.viewPasteur) viewPasteurEnabled = true }
+				if(BASE.viewOneSanofi !== undefined) { if(permission.permission === BASE.viewOneSanofi) viewOneSanofiEnabled = true }
+				if(BASE.viewSpecialtyCare !== undefined) { if(permission.permission === BASE.viewSpecialtyCare) viewSpecialtyCareEnabled = true }
+			})
+		}
 
-				{/* <!-- Page Content Holder --> */}
-			<div id="content">
-			<div className="container-fluid">
-				<Navbar classButton={ this.state.classButton } userPhoto={ userPhoto } collapse={ this.collapse } />
-				<div className="row">
-					<div className="col-12">
-						<div className="welcome-text">
-							<span style={{ color: color }} className="section-topname"><i className="fas fa-home mr-1"></i> Campus WingCamp</span>
-							<div className="divider-line"></div>
-							<h2 className="section-title">¡Hola { this.props.userReducer.data.user || '' }! Te espera un universo de herramientas para transmitir tus conocimientos.</h2>
-							<p className="section-subtitle">Desde el panel izquierdo podrás crear y administrar tus cursos.</p>
+		if(this.props.linkReducer.fetched) {
+			links = this.props.linkReducer.data
+		}
+
+		links.map((link: {
+			url: string,
+			room: string
+		}) => {
+			if(link.room === config.ONE_SANOFI) link_ONE_SANOFI = link.url
+		})
+
+		return (
+			<div>
+				<ScrollToTopOnMount />
+				<div className="bg-container">
+					<WhiteNavbar />
+					<div className="wrapper">
+						<Dashboard />
+						<div className="container-fluid">
+							<div className="row">
+								<div className="col-12">
+									<div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+									
+										<div className="carousel-inner">
+											<div className="carousel-item active">
+												<div className="w-100 slide1">													
+													<div className="container">
+														<div className="row">
+															<div className="col-12 col-md-6">
+																<h1 className="big-titles-home">Bienvenido al Kick Off 2021 de Sanofi Cono Sur</h1>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										
+											
+											
+										</div>							
+										
+									</div>
+								</div>
+							</div>
+
+							{/* botones acceder */}
+							<div className="container margin-top">
+
+								<div className="row justify-content-center">
+									<div className="col-12 col-md-5 col-lg-4 col-xl-4 text-center violet-bg">
+									<div className="salas-button">
+											<p className="button-title">
+												Plenaria One Sanofi
+											</p>
+											<p className="button-access">
+												{
+													viewOneSanofiEnabled ? <a href={ link_ONE_SANOFI } target="blank">Acceder </a> : 'Acceder'
+												}
+											</p>
+											<KeyboardArrowUpIcon style={{ color: 'white' }}/>
+										</div>
+										
+									</div>
+
+								</div>
+								<div className="row violet-bg my-4">
+									<div className="col-12 col-md-4 text-center">
+										<div className="salas-button" style={divBorder}>
+											<p className="button-title">
+												Kick Off Gen Med
+											</p>
+											<p className="button-access">
+												{
+													viewGenMedEnabled ? <Link to="/sanofigenmed">Acceder </Link> : 'Acceder'
+												}
+											</p>
+											<KeyboardArrowUpIcon style={{ color: 'white' }}/>
+										</div>
+									</div>
+									<div className="col-12 col-md-4 text-center">
+									<div className="salas-button" style={divBorder}>
+											<p className="button-title">
+												Kick Off Sanofi Pasteur
+											</p>
+											<p className="button-access">
+												{
+													viewPasteurEnabled ? <Link to="/sanofipasteur">Acceder </Link> : 'Acceder'
+												}
+											</p>
+											<KeyboardArrowUpIcon style={{ color: 'white' }}/>
+										</div>
+									
+									</div>
+									<div className="col-12 col-md-4 text-center">
+									<div className="salas-button">
+											<p className="button-title">
+												Kick Off Specialty Care
+											</p>
+											<p className="button-access">
+												{
+													viewSpecialtyCareEnabled ? <Link to="/sanofispecialty">Acceder </Link> : 'Acceder'
+												}
+											</p>
+											<KeyboardArrowUpIcon style={{ color: 'white' }}/>
+										</div>
+										
+									</div>
+
+								</div>
+							</div>
+							{/* fin botones acceder */}
 						</div>
+						{/* end container fluid */}
 					</div>
-						<div className="col-12">
-						<div className="image-container">
-						<img className="img-home img-fluid" src={bgHome} alt="" /> 
-						</div>
-						</div>
-						<div className="col-12">
-							<div className="bottom-text">
-								<h4 className="bottom-text-thanks">¡Muchas gracias por unirte a la comunidad WingCamp, { this.props.loginReducer?.data?.user?.user || '' }!</h4>
-								<span className="bottom-text-subtitle">Antes de terminar, ayudanos a seguir creciendo.</span>
-								<p className="bottom-text-calification">Dejar una calificación sobre la nueva plataforma de WingCamp</p>
+						{/* end wrapper */}
+
+
+					<div className="container">
+						<div className="row">
+							<div className="col-12 text-center">
+								<div className="agenda-home">
+									<h4 className="white-titles">Agenda general</h4>
+								</div>
 							</div>
 						</div>
-					</div>
-							<div className="line"></div>
-						</div>
+						<AgendaGral/>					
 					</div>
 				</div>
+				{/* end bg container */}
+				<Footer />
 			</div>
 		);
 	}

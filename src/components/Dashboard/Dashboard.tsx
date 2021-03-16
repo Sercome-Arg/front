@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react'
 import { withTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { connect } from 'react-redux'
 
-import storage from './../../config'
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 
-import * as courseAction from '../../store/actions/course'
+import config from './../../config'
+
+import * as loginAction from '../../store/actions/login'
 import * as permissionAction from '../../store/actions/permission'
 
 import './css/dashboard.css'
 
-const whiteLogo = require('./img/white-logo.png')
+const Deco = require('./img/deco.png')
+const wspIcon = {
+	color: '#79d852'
+  };
 
 function mapStateToProps(store: {
 	appReducer: any,
 	permissionReducer: any,
+	userReducer: any,
 }) {
 	return {
+		userReducer: store.userReducer,
 		permissionReducer: store.permissionReducer,
 		appReducer: store.appReducer,
 	};
@@ -35,227 +43,115 @@ class Dashboard extends React.Component<{}, {}> {
 	}
 
 	componentWillMount = () => {
-		let userId: string | null = localStorage.getItem(storage.session_user)
-		if(userId !== null) this.props.dispatch(permissionAction.getPermissionByUser(userId))
+
+		let userId: string | null = localStorage.getItem(config.session_user)
+		if (localStorage.getItem(config.session_user) === null || localStorage.getItem(config.session_user) === undefined) this.props.history.push('/')
+		if (userId !== null) this.props.dispatch(permissionAction.getPermissionByUser(userId))
+
 	}
 
-	toCourses = (isTeacher: boolean) => {
-		this.props.dispatch(courseAction.reintentar())
-		if(isTeacher){
-			this.props.dispatch(courseAction.getCourses())
-		} else {
-			this.props.dispatch(courseAction.getCoursesForStudent())
-		}
+	logout = () => {
+		localStorage.clear()
+		this.props.dispatch(loginAction.reintentar())
 	}
 
 	render(){
 
 		const { t } = this.props;
 
-		let logo: any = whiteLogo
-		let color: string = '#5600c2'
 		let permissions: {
-			number: string
+			permission: string
 		}[] = []
 		let BASE: any = {}
 
-		let courseListViewEnabled: boolean = false
-		let courseCreateViewEnabled: boolean = false
+		let viewAgendaEnabled: boolean = false
+		let viewGenMedEnabled: boolean = false
+		let viewHomeEnabled: boolean = false
+		let viewPasteurEnabled: boolean = false
+		let viewOneSanofiEnabled: boolean = false
+		let viewSpecialtyCareEnabled: boolean = false
 
-		let fileListViewEnabled: boolean = false
-		let fileCreateViewEnabled: boolean = false
-
-		let linkListViewEnabled: boolean = false
-		let linkCreateViewEnabled: boolean = false
-
-		let testListViewEnabled: boolean = false
-		let testCreateViewEnabled: boolean = false
-
-		let userListViewEnabled: boolean = false
-		let userCreateViewEnabled: boolean = false
-
-		let paymentListViewEnabled: boolean = false
-		let paymentCreateViewEnabled: boolean = false
-		
-		let quizListViewEnabled: boolean = false
-		let quizCreateViewEnabled: boolean = false
-
-		if(this.props.appReducer.color !== undefined &&this.props.appReducer.color !== '') {
-			color = this.props.appReducer.color
-		}
-
-		if(this.props.color !== undefined && this.props.color !== '') {
-			color = this.props.color
-		}
-
-		if(this.props.permissionReducer) {
+		if(this.props.permissionReducer.fetched) {
 			permissions = this.props.permissionReducer.data
 			BASE = this.props.permissionReducer.base
 		}
 
-		if(Array.isArray(permissions)) {
+		if(
+			Array.isArray(permissions) &&
+			BASE !== undefined
+		) {
 			permissions.map((permission: {
-				number: string
+				permission: string
 			}) => {
-				if(permission.number === BASE.viewListCourse) courseListViewEnabled = true
-				if(permission.number === BASE.viewCreateCourse) courseCreateViewEnabled = true
-
-				if(permission.number === BASE.viewListFile) fileListViewEnabled = true
-				if(permission.number === BASE.viewCreateFile) fileCreateViewEnabled = true
-
-				if(permission.number === BASE.viewListLink) linkListViewEnabled = true
-				if(permission.number === BASE.viewCreateLink) linkCreateViewEnabled = true
-
-				if(permission.number === BASE.viewListTest) testListViewEnabled = true
-				if(permission.number === BASE.viewCreateTest) testCreateViewEnabled = true
-
-				if(permission.number === BASE.viewListUser) userListViewEnabled = true
-				if(permission.number === BASE.viewCreateUser) userCreateViewEnabled = true
-
-				if(permission.number === BASE.viewListPayment) paymentListViewEnabled = true
-				if(permission.number === BASE.viewCreatePayment) paymentCreateViewEnabled = true
-				
-				if(permission.number === BASE.viewListQuiz) quizListViewEnabled = true
-				if(permission.number === BASE.viewCreateQuiz) quizCreateViewEnabled = true
+				if(BASE.viewAgenda !== undefined) { if(permission.permission === BASE.viewAgenda) viewAgendaEnabled = true }
+				if(BASE.viewGenMed !== undefined) { if(permission.permission === BASE.viewGenMed) viewGenMedEnabled = true }
+				if(BASE.viewHome !== undefined) { if(permission.permission === BASE.viewHome) viewHomeEnabled = true }
+				if(BASE.viewPasteur !== undefined) { if(permission.permission === BASE.viewPasteur) viewPasteurEnabled = true }
+				if(BASE.viewOneSanofi !== undefined) { if(permission.permission === BASE.viewOneSanofi) viewOneSanofiEnabled = true }
+				if(BASE.viewSpecialtyCare !== undefined) { if(permission.permission === BASE.viewSpecialtyCare) viewSpecialtyCareEnabled = true }
 			})
 		}
 
-		if(this.props.logo !== undefined) logo = this.props.logo
-
 		return(
-			<nav id="sidebar" style={{ background: color }} className={ this.props.classSidebar }>
-			<div className="sidebar-header" style={{ background: color }}>
-				<img className="sidebar-logo" src={ logo } alt="" />
+			<div className="align-elements-responsive">
+				<nav className="navbar navbar-expand-lg navbar-light border-0" id="sidebar">
+					<div className="sidebar-header">
+						<img className="sidebar-logo-navleft" src={ Deco } alt="" />
+					</div>
+					{/* ACA VA EL BOOTON QUE ME LLEVE AL WHITEHEADER */}
+					<div className="collapse navbar-collapse" id="navbarNavleft">
+						<ul className="list-unstyled components">
+							{
+								viewHomeEnabled ? <li className="nav-item">
+									<NavLink activeClassName='is-active' className="links" to='/home'><p className="text-uppercase sidebar-title">Home</p></NavLink>	
+								</li> : null
+							}
+							{
+								viewAgendaEnabled ? <li className="nav-item">
+									<NavLink activeClassName='is-active' className="links" to='/agenda'><p className="text-uppercase sidebar-title">Agenda del evento</p></NavLink>
+								</li> : null
+							}
+							{
+								viewOneSanofiEnabled ? <li className="nav-item">
+									<NavLink activeClassName='is-active' className="links" to='/sanofionesanofi'><p className="text-uppercase sidebar-title">Plenaria One Sanofi</p></NavLink>
+								</li> : null
+							}
+							{
+								viewGenMedEnabled ? <li className="nav-item">
+									<NavLink activeClassName='is-active' className="links" to='/sanofigenmed'><p className="text-uppercase sidebar-title">Gen Med</p></NavLink>
+								</li> : null
+							}
+							{
+								viewPasteurEnabled ? <li className="nav-item">
+									<NavLink activeClassName='is-active' className="links" to='/sanofipasteur'><p className="text-uppercase sidebar-title">Sanofi Pasteur</p></NavLink>
+								</li> : null
+							}
+							{
+								viewSpecialtyCareEnabled ? <li className="nav-item">
+									<NavLink activeClassName='is-active' className="links" to='/sanofispecialty'><p className="text-uppercase sidebar-title">Specialty Care</p></NavLink>
+								</li> : null
+							}							
+							<li className="nav-item d-block d-sm-block d-md-block d-lg-none">
+							<a href="https://api.whatsapp.com/send?phone=541123800546" className="text-uppercase sidebar-title color-white"> <p className="">Mesa de ayuda <WhatsAppIcon style={wspIcon} fontSize="small" className="ml-2" /></p></a>
+							</li>
+							<li className="nav-item d-block d-sm-block d-md-block d-lg-none">
+								<Link to='/' onClick={ this.logout }>
+									<p className="mb-0 logout"> LOG OUT  </p>
+								</Link>
+							</li>		
+						</ul>
+					</div>
+				</nav>
+				<div className="help-sidebar my-2 d-none d-sm-none d-md-none d-lg-block" id="sidebar">
+				<p className="mb-0">MESA DE AYUDA</p>
+					<a href="https://api.whatsapp.com/send?phone=541123800546" target="blank" className="d-flex align-items-center"> 
+						<p className="mb-0 mr-2">+54 9 11 23800546</p> <WhatsAppIcon style={wspIcon} fontSize="small" />
+					</a>
+					<a href="mailto:helpdesk@kickoff2021conosur.com" target="blank"> 
+						<p style={{ fontSize: '12px' }} className="mb-0">helpdesk@kickoff2021conosur.com</p>
+					</a>
+				</div>
 			</div>
-
-			<ul className="list-unstyled components">
-				<p className="text-uppercase font-weight-bold"> <i className="fas fa-home mr-1"></i> <a href="/Home">Inicio</a></p>
-				<p className="text-uppercase sidebar-title">Administración de cursos</p>
-				{
-					( courseListViewEnabled || courseCreateViewEnabled ) ? <li>
-						<a href="#cursosSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"> <i className="fas fa-briefcase mr-2"></i> Cursos</a>
-						<ul className="collapse list-unstyled" id="cursosSubmenu">
-							{
-								courseListViewEnabled ? <li><Link onClick={ () => this.toCourses(fileListViewEnabled) } to='/courseList'>Mis cursos</Link></li> : null
-							}
-							{
-								courseCreateViewEnabled ? <li><Link to="/course">Crear nuevo curso</Link></li> : null
-							}
-						</ul>
-					</li> : null
-				}
-				{
-					(fileListViewEnabled || fileCreateViewEnabled) ? <li>
-						<a href="#fileSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"><i className="fas fa-folder mr-2"></i> Materiales</a>
-						<ul className="collapse list-unstyled" id="fileSubmenu">
-							{
-								fileCreateViewEnabled ? <li>
-									<Link to="/file">Crear nuevo material</Link>
-								</li> : null
-							}
-							{
-								fileListViewEnabled ? <li>
-									<Link to='/fileList'>Mis materiales</Link>
-								</li> : null
-							}
-						</ul>
-					</li> : null
-				}
-				{
-					(linkListViewEnabled || linkCreateViewEnabled) ? <li>
-						<a href="#linkSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"><i className="fas fa-link mr-2"></i> URLs</a>
-						<ul className="collapse list-unstyled" id="linkSubmenu">
-							{
-								linkCreateViewEnabled ? <li>
-									<Link to="/link">Crear nueva URL</Link>
-								</li> : null
-							}
-							{
-								linkListViewEnabled ? <li>
-									<Link to='/linkList'>Mis URLs</Link>
-								</li> : null
-							}
-						</ul>
-					</li> : null
-				}
-				{
-					(testListViewEnabled || testCreateViewEnabled) ? <li>
-						<a href="#examenSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"> <i className="fas fa-file-alt mr-2"></i> Exámenes</a>
-						<ul className="collapse list-unstyled" id="examenSubmenu">
-							{
-								testCreateViewEnabled ? <li>
-									<Link to='/newexam'>Crear examen</Link>
-								</li> : null
-							}
-							{
-								testListViewEnabled ? <li>
-									<Link to='/examlist'>Exámenes creados</Link>
-								</li> : null
-							}
-						</ul>
-					</li> : null
-				}
-				{
-					quizListViewEnabled ? <li>
-						<a href="#quizSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"> <i className="far fa-question-circle mr-2"></i> Encuestas</a>
-						<ul className="collapse list-unstyled" id="quizSubmenu">
-							{
-								quizCreateViewEnabled ? <li>
-									<Link to='/newquiz'>Crear encuesta</Link>
-								</li> : null
-							}
-							{
-								quizListViewEnabled ? <li>
-									<Link to='/quizlist'>Encuestas creadas</Link>
-								</li> : null
-							}
-						</ul>
-					</li> : null
-				}
-				
-				{
-					(userListViewEnabled || userCreateViewEnabled) ? <li>
-						<a href="#studentSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"> <i className="fas fa-users mr-2"></i> Usuarios</a>
-						<ul className="collapse list-unstyled" id="studentSubmenu">
-							{
-								userCreateViewEnabled ? <li>
-									<Link to="/student"><i ></i>Crear usuarios</Link>
-								</li> : null
-							}
-							{
-								userListViewEnabled ? <li>
-									<Link to="/studentList"><i ></i>Mis estudiantes</Link>
-								</li> : null
-							}
-						</ul>
-					</li> : null
-				}
-			
-				<p className="text-uppercase sidebar-title mt-4">Cuenta</p>
-				<li>
-					<a href="#"><i className="fas fa-user-cog"></i> Mi perfil</a>	 
-					{
-						( paymentListViewEnabled || paymentCreateViewEnabled ) ? <>
-							<a href="#pagosSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle"> <i className="fas fa-credit-card"></i> Pagos</a>
-							<ul className="collapse list-unstyled" id="pagosSubmenu">
-								{
-									paymentCreateViewEnabled ? <li>
-										<Link to='/subscription'>Pagar cuenta</Link>
-									</li> : null
-								}
-								{
-									paymentListViewEnabled ? <li>
-										<Link to='/paymentList'>Mis pagos</Link>
-									</li> : null
-								}
-							</ul>
-						</> : null
-					}
-					<a href="#"><i className="fas fa-envelope"></i> Mensajes</a>
-					<a href="#"><i className="fas fa-info-circle"></i> Ayuda</a>
-				</li>
-			</ul>
-		</nav>
 		);
 	}
 }

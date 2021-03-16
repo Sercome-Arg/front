@@ -1,5 +1,5 @@
 {
-    "name": "wingstratton-2.0",
+    "name": "sanofi",
     "version": "0.1.0",
     "private": true,
     "dependencies": {
@@ -50,7 +50,6 @@
         "mongodb": "^3.3.3",
         "mongojs": "^3.0.0",
         "node-sass": "^4.14.1",
-        "path": "^0.12.7",
         "pdf-viewer-reactjs": "^2.2.2",
         "prop-types": "^15.7.2",
         "react": "^16.13.1",
@@ -60,6 +59,7 @@
         "react-dom": "^16.13.1",
         "react-elastic-carousel": "^0.4.1",
         "react-facebook-login": "^4.1.1",
+        "react-ga": "^3.3.0",
         "react-google-login": "^5.1.22",
         "react-i18next": "^11.7.3",
         "react-pdf": "^5.1.0",

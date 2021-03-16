@@ -1,0 +1,28 @@
+.agenda-turno .lower-title {
+    text-transform: lowercase;
+    color: white;
+    font-weight: 300;
+    margin-left: 4px;
+}
+@media screen and (max-width: 992px) {
+
+
+}
+@media screen and (max-width: 768px) {
+    
+  
+ 
+}
+
+@media screen and (max-width: 576px) {
+
+    
+}
+
+@media screen and (max-width: 375px) {
+ 
+}
+@media screen and (max-width: 320px) {
+ 
+
+}

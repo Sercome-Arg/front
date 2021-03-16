@@ -1,0 +1,44 @@
+.white-text {
+    color: white;
+}
+
+.deco-button {
+    margin-left: 50px;
+}
+@media screen and (max-width: 1024px) {
+    .deco-button {
+        margin-left: 10px;
+    }
+ 
+
+}
+@media screen and (max-width: 992px) {
+
+
+}
+@media screen and (max-width: 768px) {
+    
+    .deco-button {
+        margin-left: 10px;
+    }
+ 
+}
+
+@media screen and (max-width: 576px) {
+
+    .deco-button {
+        transform: rotate(
+            90deg
+            );
+            width: 50px;
+    }
+    
+}
+
+@media screen and (max-width: 375px) {
+ 
+}
+@media screen and (max-width: 320px) {
+ 
+
+}
